@@ -99,7 +99,7 @@ var useMap = new Map()
 var timeMap = new Map()
 var conIdArr = []
 const apiArr: (ChatGPTAPI | ChatGPTUnofficialProxyAPI)[] = []
-for (let i = 0; i < 14; i++) {
+for (let i = 0; i < 25; i++) {
 	const api = createApi(process.env['OPENAI_ACCESS_TOKEN' + i])
 	apiArr.push(api)
 	apiMap.set(api, false)
