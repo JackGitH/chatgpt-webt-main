@@ -201,12 +201,25 @@ async function chatReplyProcess(options: RequestOptions) {
 			conIdArr.push(response.conversationId)
 		}
 		//}
-
+		console.log("responseaaa:"+response)
 		return sendResponse({ type: 'Success', data: response })
 	}
 	catch (error: any) {
 		apiMap.set(api, false)
+		console.log("errora:"+error)
+/*		if(error.contains("Conversation not found")){
+			return sendResponse({ type: 'Fail', message: "会话过期，请新建对话" })
+		}*/
 		const code = error.statusCode
+		if(code==("404")){
+			return sendResponse({ type: 'Fail', message: "会话过期，请新建对话" })
+		}
+		if(code==("429")){
+			return sendResponse({ type: 'Fail', message: "代理服务器限流，请3秒后再试" })
+		}
+		if(code==("400")){
+			return sendResponse({ type: 'Fail', message: "openAi限流，请5秒后再试" })
+		}
 		global.console.log(error)
 		if (Reflect.has(ErrorCodeMessage, code))
 			return sendResponse({ type: 'Fail', message: ErrorCodeMessage[code] })
