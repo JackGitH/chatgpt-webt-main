@@ -153,6 +153,7 @@ async function chatReplyProcess(options: RequestOptions) {
 	//console.log("options.message:{}"+options.message)
 	var api = null;
 	var iNew = true;
+	console.log("lastContext.conversationId:"+lastContext.conversationId+"__message:"+message)
 	if(lastContext.conversationId!="" && lastContext.conversationId!=null && lastContext.conversationId!="undefined"){
 		console.log("old api")
 		api = useMap.get(lastContext.conversationId)
@@ -201,7 +202,7 @@ async function chatReplyProcess(options: RequestOptions) {
 			conIdArr.push(response.conversationId)
 		}
 		//}
-		console.log("responseaaa:"+response)
+		//console.log("responseaaa:"+JSON.parse(response).get("text"))
 		return sendResponse({ type: 'Success', data: response })
 	}
 	catch (error: any) {
