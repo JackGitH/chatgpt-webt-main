@@ -166,8 +166,8 @@ async function chatReplyProcess(options: RequestOptions) {
 		iNew = false
 	}
 
-	const flag = apiMap.get(api)
-	if(flag) return sendResponse({ type: 'Fail', message: 'Service busy, wait 10 seconds and try again' })
+	//const flag = apiMap.get(api)
+	//if(flag) return sendResponse({ type: 'Fail', message: 'Service busy, wait 10 seconds and try again' })
 	apiMap.set(api, true)
 	try {
 		let options: SendMessageOptions = { timeoutMs }
