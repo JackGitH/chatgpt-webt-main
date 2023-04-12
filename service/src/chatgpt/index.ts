@@ -212,7 +212,7 @@ async function chatReplyProcess(options: RequestOptions) {
 		}*/
 		const code = error.statusCode
 		if(code==("404")){
-			return sendResponse({ type: 'Fail', message: "会话过期，请新建对话" })
+			return sendResponse({ type: 'Fail', message: "会话过期，请左上角新建对话" })
 		}
 		if(code==("429")){
 			return sendResponse({ type: 'Fail', message: "代理服务器限流，请3秒后再试" })
