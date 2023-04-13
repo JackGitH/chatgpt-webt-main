@@ -45,7 +45,7 @@ onMounted(() => {
         Version - {{ pkg.version }}
       </h2>
       <div class="p-2 space-y-2 rounded-md bg-neutral-100 dark:bg-neutral-700">
-        <p>
+<!--        <p>
           此项目开源于
           <a
             class="text-blue-600 dark:text-blue-500"
@@ -55,9 +55,9 @@ onMounted(() => {
             Github
           </a>
           ，免费且基于 MIT 协议，没有任何形式的付费行为！
-        </p>
+        </p>-->
         <p>
-          如果你觉得此项目对你有帮助，请在 Github 帮我点个 Star 或者给予一点赞助，谢谢！
+          请自觉遵守社区协议，遵纪守法,合法正当使用，如有违规，社区将有权利停止您的使用行为。（在此。我们谨向次开源工程师致谢）
         </p>
       </div>
       <p>{{ $t("setting.api") }}：{{ config?.apiModel ?? '-' }}</p>

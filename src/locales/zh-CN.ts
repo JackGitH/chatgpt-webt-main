@@ -25,7 +25,7 @@ export default {
     success: '操作成功',
     failed: '操作失败',
     verify: '验证',
-    unauthorizedTips: '未经授权，请先进行验证。',
+    unauthorizedTips: '服务火爆，同时为了社区的健康发展和安全，请加入社区获取授权码，先进行验证。',
   },
   chat: {
     newChatButton: '新建聊天',

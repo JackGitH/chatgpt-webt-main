@@ -25,7 +25,7 @@ export default {
     success: 'Success',
     failed: 'Failed',
     verify: 'Verify',
-    unauthorizedTips: 'Unauthorized, please verify first.',
+    unauthorizedTips: 'The service is hot, and for the healthy development and safety of the community, please join the community to obtain an authorization code and verify it first.Unauthorized, please verify first.',
   },
   chat: {
     newChatButton: 'New Chat',

