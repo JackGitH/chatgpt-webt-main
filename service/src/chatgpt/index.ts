@@ -205,7 +205,7 @@ async function chatReplyProcess(options: RequestOptions) {
     }).then()
   }
   catch (errornow: any) {
-    console.log('传输错误')
+    console.log('传输错误A')
   }
 
   if (lastContext.conversationId != '' && lastContext.conversationId != null && lastContext.conversationId != 'undefined') {
