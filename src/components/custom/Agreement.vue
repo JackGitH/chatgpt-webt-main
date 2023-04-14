@@ -49,7 +49,7 @@ const { agree } = storeToRefs(authStore)
   overflow-x: hidden;
 }
 .dialog-footer {
-  /deep/ .el-button--success {
+  :deep(.el-button--success) {
     background-color: #8ac26e !important;
   }
 }
