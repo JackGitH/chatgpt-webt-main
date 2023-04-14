@@ -13,9 +13,11 @@ import { useUsingContext } from './hooks/useUsingContext'
 import HeaderComponent from './components/Header/index.vue'
 import { HoverButton, SvgIcon } from '@/components/common'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
-import { useChatStore, usePromptStore } from '@/store'
+import { useAuthStore, useChatStore, usePromptStore } from '@/store'
 import { fetchChatAPIProcess } from '@/api'
 import { t } from '@/locales'
+const authStore = useAuthStore()
+const { agree } = storeToRefs(authStore)
 
 let controller = new AbortController()
 
@@ -546,7 +548,7 @@ onUnmounted(() => {
               />
             </template>
           </NAutoComplete>
-          <NButton type="primary" :disabled="buttonDisabled" @click="handleSubmit">
+          <NButton type="primary" :disabled="buttonDisabled || !agree" @click="handleSubmit">
             <template #icon>
               <span class="dark:text-black">
                 <SvgIcon icon="ri:send-plane-fill" />

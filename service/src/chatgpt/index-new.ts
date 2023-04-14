@@ -29,14 +29,13 @@ const disableDebug: boolean = process.env.OPENAI_API_DISABLE_DEBUG === 'true'
 let apiModel: ApiModel
 let model = 'gpt-3.5-turbo'
 
-
 function createApi(accessToken) {
-	// if (!isNotEmptyString(process.env.OPENAI_API_KEY) && !isNotEmptyString(process.env[accessToken]))
-	// 	throw new Error('Missing OPENAI_API_KEY or OPENAI_ACCESS_TOKEN environment variable')
+  // if (!isNotEmptyString(process.env.OPENAI_API_KEY) && !isNotEmptyString(process.env[accessToken]))
+  // throw new Error('Missing OPENAI_API_KEY or OPENAI_ACCESS_TOKEN environment variable')
 
-	let api: ChatGPTAPI | ChatGPTUnofficialProxyAPI
+  let api: ChatGPTAPI | ChatGPTUnofficialProxyAPI
 
-	// More Info: https://github.com/transitive-bullshit/chatgpt-api
+  // More Info: https://github.com/transitive-bullshit/chatgpt-api
 
   if (isNotEmptyString(process.env.OPENAI_API_KEY)) {
     const OPENAI_API_BASE_URL = process.env.OPENAI_API_BASE_URL
@@ -90,30 +89,32 @@ function createApi(accessToken) {
     api = new ChatGPTUnofficialProxyAPI({ ...options })
     apiModel = 'ChatGPTUnofficialProxyAPI'
   }
-	return api
+  return api
 }
 const apiMap = new Map()
 const apiArr: (ChatGPTAPI | ChatGPTUnofficialProxyAPI)[] = []
 for (let i = 0; i < 2; i++) {
-	const api = createApi(process.env['OPENAI_ACCESS_TOKEN' + i])
-	apiArr.push(api)
-	apiMap.set(api, false)
+  const api = createApi(process.env[`OPENAI_ACCESS_TOKEN${i}`])
+  apiArr.push(api)
+  apiMap.set(api, false)
 }
 console.log(JSON.stringify(apiArr))
 function findUseApi() {
-	const len: number = apiArr.length
-	for (let i = 0; i < len; i++) {
-		const flag = apiMap.get(apiArr[i])
-		if(!flag) return apiArr[i]
-	}
-	return false
+  const len: number = apiArr.length
+  for (let i = 0; i < len; i++) {
+    const flag = apiMap.get(apiArr[i])
+    if (!flag)
+      return apiArr[i]
+  }
+  return false
 }
 
 async function chatReplyProcess(options: RequestOptions) {
   const { message, lastContext, process, systemMessage, temperature, top_p } = options
-	const api = findUseApi()
-	if(!api) return sendResponse({ type: 'Fail', message: 'busy' })
-	apiMap.set(api, true)
+  const api = findUseApi()
+  if (!api)
+    return sendResponse({ type: 'Fail', message: 'busy' })
+  apiMap.set(api, true)
   try {
     let options: SendMessageOptions = { timeoutMs }
 
@@ -135,12 +136,12 @@ async function chatReplyProcess(options: RequestOptions) {
         process?.(partialResponse)
       },
     })
-		apiMap.set(api, false)
+    apiMap.set(api, false)
 
     return sendResponse({ type: 'Success', data: response })
   }
   catch (error: any) {
-		apiMap.set(api, false)
+    apiMap.set(api, false)
     const code = error.statusCode
     global.console.log(error)
     if (Reflect.has(ErrorCodeMessage, code))

@@ -11,12 +11,14 @@ interface SessionResponse {
 export interface AuthState {
   token: string | undefined
   session: SessionResponse | null
+  agree: boolean
 }
 
 export const useAuthStore = defineStore('auth-store', {
   state: (): AuthState => ({
     token: getToken(),
     session: null,
+    agree: false,
   }),
 
   getters: {
@@ -40,6 +42,10 @@ export const useAuthStore = defineStore('auth-store', {
     setToken(token: string) {
       this.token = token
       setToken(token)
+    },
+
+    setAgree(flag: boolean) {
+      this.agree = flag
     },
 
     removeToken() {

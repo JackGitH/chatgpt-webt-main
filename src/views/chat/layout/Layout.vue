@@ -4,6 +4,7 @@ import { NLayout, NLayoutContent } from 'naive-ui'
 import { useRouter } from 'vue-router'
 import Sider from './sider/index.vue'
 import Permission from './Permission.vue'
+import Agreement from '@/components/custom/Agreement.vue'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { useAppStore, useAuthStore, useChatStore } from '@/store'
 
@@ -46,6 +47,7 @@ const getContainerClass = computed(() => {
         </NLayoutContent>
       </NLayout>
     </div>
+    <Agreement />
     <Permission :visible="needPermission" />
   </div>
 </template>

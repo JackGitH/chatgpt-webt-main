@@ -3,10 +3,12 @@ import type { PluginOption } from 'vite'
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
+import ElementPlus from 'unplugin-element-plus/vite'
 
 function setupPlugins(env: ImportMetaEnv): PluginOption[] {
   return [
     vue(),
+    ElementPlus(),
     env.VITE_GLOB_APP_PWA === 'true' && VitePWA({
       injectRegister: 'auto',
       manifest: {
