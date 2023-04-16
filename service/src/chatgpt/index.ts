@@ -137,10 +137,11 @@ const tokens = ["eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVF
 
 
 const apiArr: (ChatGPTAPI | ChatGPTUnofficialProxyAPI)[] = []
-for (let i = 0; i < 18; i++) {
+for (let i = 0; i < 12; i++) {
 
   //const api = createApi(tokens[i])
   const api = createApi(process.env[`OPENAI_API_KEY${i}`])
+  //const api = createApi("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")
   apiArr.push(api)
   apiMap.set(api, false)
 }
