@@ -8,7 +8,7 @@ const { agree } = storeToRefs(authStore)
 
 <template>
   <ElDialog
-    :model-value="!agree" title="免责声明" width="80%" center
+    :model-value="!agree" title="免责声明（目前官网出现了正常调用key和代理都无法正常访问的bug，静待官方待修复，目前仅个人账号网页端受影响较小，建议购买账户）" width="80%" center
     :show-close="false"
     :close-on-click-modal="false"
     :close-on-press-escape="false"
