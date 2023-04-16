@@ -81,6 +81,9 @@ watch(
         </div>
         <div class="p-4">
           <NButton block @click="show = true">
+             <a href="https://chatgptfly.club/static/a.html">（有T的建议）购买专属账号</a>
+          </NButton>
+          <NButton block @click="show = true">
             {{ $t('store.siderButton') }}
           </NButton>
         </div>
