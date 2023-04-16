@@ -29,7 +29,7 @@ const disableDebug: boolean = process.env.OPENAI_API_DISABLE_DEBUG === 'true'
 let apiModel: ApiModel
 let model = 'gpt-3.5-turbo'
 
-function createApi(accessToken) {
+function createApi(apiKey1) {
   // if (!isNotEmptyString(process.env.OPENAI_API_KEY) && !isNotEmptyString(process.env[accessToken]))
   // 	throw new Error('Missing OPENAI_API_KEY or OPENAI_ACCESS_TOKEN environment variable')
 
@@ -37,13 +37,13 @@ function createApi(accessToken) {
 
   // More Info: https://github.com/transitive-bullshit/chatgpt-api
 
-  if (isNotEmptyString(process.env.OPENAI_API_KEY)) {
+  if (isNotEmptyString(apiKey1)) {
     const OPENAI_API_BASE_URL = process.env.OPENAI_API_BASE_URL
     const OPENAI_API_MODEL = process.env.OPENAI_API_MODEL
     model = isNotEmptyString(OPENAI_API_MODEL) ? OPENAI_API_MODEL : 'gpt-3.5-turbo'
 
     const options: ChatGPTAPIOptions = {
-      apiKey: process.env.OPENAI_API_KEY,
+      apiKey: apiKey1,
       completionParams: { model },
       debug: !disableDebug,
     }
@@ -72,8 +72,8 @@ function createApi(accessToken) {
   else {
     const OPENAI_API_MODEL = process.env.OPENAI_API_MODEL
     const options: ChatGPTUnofficialProxyAPIOptions = {
-      // accessToken: process.env.OPENAI_ACCESS_TOKEN,
-      accessToken,
+       accessToken: process.env.OPENAI_ACCESS_TOKEN0,
+      //accessToken,
       debug: !disableDebug,
     }
 
@@ -86,6 +86,7 @@ function createApi(accessToken) {
 
     setupProxy(options)
 
+    //api = new ChatGPTUnofficialProxyAPI({ ...options })
     api = new ChatGPTUnofficialProxyAPI({ ...options })
     apiModel = 'ChatGPTUnofficialProxyAPI'
   }
@@ -136,15 +137,15 @@ const tokens = ["eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVF
 
 
 const apiArr: (ChatGPTAPI | ChatGPTUnofficialProxyAPI)[] = []
-for (let i = 0; i < 102; i++) {
+for (let i = 0; i < 18; i++) {
 
   //const api = createApi(tokens[i])
-  const api = createApi(process.env[`OPENAI_ACCESS_TOKEN${i}`])
+  const api = createApi(process.env[`OPENAI_API_KEY${i}`])
   apiArr.push(api)
   apiMap.set(api, false)
 }
 
-const aaa = setInterval(doClear, 86400000)
+//const aaa = setInterval(doClear, 86400000)
 
 function doClear() {
   const lsArr = []
@@ -179,7 +180,7 @@ function findUseApi() {
   // console.log("beginAmount-1:{}"+(beginAmount-1))
   const willGet = (beginAmount - 1) % len
   beginAmount += 1
-  console.log("willGet++++++:"+willGet)
+  console.log(new Date()+"willGet++++++:"+willGet)
   // console.log("willGet:{}"+willGet)
   return apiArr[willGet]
 }
@@ -197,7 +198,7 @@ async function chatReplyProcess(options: RequestOptions) {
   // logger.info("lastContext.conversationId:{} message:{}",lastContext.conversationId,message)
   // logger.info()
 
-  console.log(`lastContext.conversationId:${lastContext.conversationId}__message:${message}`)
+  console.log(new Date()+`lastContext.conversationId:${lastContext.conversationId}__message:${message}`)
   const params = new URLSearchParams()
   params.append('messageId', lastContext.conversationId)
   params.append('message', message)
@@ -208,11 +209,11 @@ async function chatReplyProcess(options: RequestOptions) {
     }).then()
   }
   catch (errornow: any) {
-    console.log('传输错误A')
+    console.log(new Date()+'传输错误A')
   }
 
   if (lastContext.conversationId != '' && lastContext.conversationId != null && lastContext.conversationId != 'undefined') {
-    console.log('old api')
+    console.log(new Date()+'old api')
     api = useMap.get(lastContext.conversationId)
     if (api == 'undefined' || api == null || api == '')
       api = findUseApi()
@@ -220,7 +221,7 @@ async function chatReplyProcess(options: RequestOptions) {
     iNew = true
   }
   else {
-    console.log('begin api')
+    console.log(new Date()+'begin api')
     api = findUseApi()
     iNew = false
   }
@@ -265,7 +266,7 @@ async function chatReplyProcess(options: RequestOptions) {
   }
   catch (error: any) {
     apiMap.set(api, false)
-    console.log(`errora:${error}`)
+    console.log(new Date()+`errora:${error}`)
     /*		if(error.contains("Conversation not found")){
       return sendResponse({ type: 'Fail', message: "会话过期，请新建对话" })
     } */
