@@ -137,7 +137,7 @@ const tokens = ["eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVF
 
 
 const apiArr: (ChatGPTAPI | ChatGPTUnofficialProxyAPI)[] = []
-for (let i = 0; i < 12; i++) {
+for (let i = 0; i < 2; i++) {
 
   //const api = createApi(tokens[i])
   const api = createApi(process.env[`OPENAI_API_KEY${i}`])
