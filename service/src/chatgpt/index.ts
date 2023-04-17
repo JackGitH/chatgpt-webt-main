@@ -29,7 +29,8 @@ const disableDebug: boolean = process.env.OPENAI_API_DISABLE_DEBUG === 'true'
 let apiModel: ApiModel
 let model = 'gpt-3.5-turbo'
 
-function createApi(apiKey1) {
+function createApi(accessToken) {
+  const apiKey1 = "";
   // if (!isNotEmptyString(process.env.OPENAI_API_KEY) && !isNotEmptyString(process.env[accessToken]))
   // 	throw new Error('Missing OPENAI_API_KEY or OPENAI_ACCESS_TOKEN environment variable')
 
@@ -72,8 +73,7 @@ function createApi(apiKey1) {
   else {
     const OPENAI_API_MODEL = process.env.OPENAI_API_MODEL
     const options: ChatGPTUnofficialProxyAPIOptions = {
-       accessToken: process.env.OPENAI_ACCESS_TOKEN0,
-      //accessToken,
+       accessToken: accessToken,
       debug: !disableDebug,
     }
 
@@ -86,7 +86,6 @@ function createApi(apiKey1) {
 
     setupProxy(options)
 
-    //api = new ChatGPTUnofficialProxyAPI({ ...options })
     api = new ChatGPTUnofficialProxyAPI({ ...options })
     apiModel = 'ChatGPTUnofficialProxyAPI'
   }
@@ -137,10 +136,10 @@ const tokens = ["eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVF
 
 
 const apiArr: (ChatGPTAPI | ChatGPTUnofficialProxyAPI)[] = []
-for (let i = 0; i < 2; i++) {
+for (let i = 0; i < 60; i++) {
 
   //const api = createApi(tokens[i])
-  const api = createApi(process.env[`OPENAI_API_KEY${i}`])
+  const api = createApi(process.env[`OPENAI_ACCESS_TOKEN${i}`])
   //const api = createApi("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")
   apiArr.push(api)
   apiMap.set(api, false)
