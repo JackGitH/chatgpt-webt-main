@@ -22,6 +22,20 @@ function handleAdd() {
     appStore.setSiderCollapsed(true)
 }
 
+function goBuy() {
+  const buyUrl = 'https://chatgptfly.club/static/a.html' + `?${Date.now()}`
+  window.location.href = buyUrl
+}
+function goHome() {
+  const homeUrl = 'https://chatgptfly.club' + `?${Date.now()}`
+  window.location.href = homeUrl
+}
+
+function getUrl() {
+  const wechatUrl = 'https://ghc-buc-1-1302315235.cos.ap-beijing.myqcloud.com/WechatIMG359.jpeg' + `?${Date.now()}`
+  window.location.href = wechatUrl
+}
+
 function handleUpdateCollapsed() {
   appStore.setSiderCollapsed(!collapsed.value)
 }
@@ -80,8 +94,16 @@ watch(
           <List />
         </div>
         <div class="p-4">
-          <NButton block @click="show = true">
-             <a href="https://chatgptfly.club/static/a.html">（有T的建议）购买专属账号</a>
+
+
+          <NButton block  @click="goHome">
+            <a>返回官网主页</a>
+          </NButton>
+          <NButton block @click="getUrl">
+            <a >加入社群（wechat）</a>
+          </NButton>
+          <NButton block @click="goBuy">
+            <a>（有梯的建议）购买专属账号</a>
           </NButton>
           <NButton block @click="show = true">
             {{ $t('store.siderButton') }}
