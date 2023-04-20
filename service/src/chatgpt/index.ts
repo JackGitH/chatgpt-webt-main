@@ -29,7 +29,7 @@ const disableDebug: boolean = process.env.OPENAI_API_DISABLE_DEBUG === 'true'
 let apiModel: ApiModel
 let model = 'gpt-3.5-turbo'
 
-function createApi(accessToken) {
+function createApi(accessToken,indexI) {
   const apiKey1 = "";
   // if (!isNotEmptyString(process.env.OPENAI_API_KEY) && !isNotEmptyString(process.env[accessToken]))
   // 	throw new Error('Missing OPENAI_API_KEY or OPENAI_ACCESS_TOKEN environment variable')
@@ -71,6 +71,7 @@ function createApi(accessToken) {
     apiModel = 'ChatGPTAPI'
   }
   else {
+    //const accessToken = "";
     const OPENAI_API_MODEL = process.env.OPENAI_API_MODEL
     const options: ChatGPTUnofficialProxyAPIOptions = {
        accessToken: accessToken,
@@ -79,9 +80,10 @@ function createApi(accessToken) {
 
     if (isNotEmptyString(OPENAI_API_MODEL))
       options.model = OPENAI_API_MODEL
+    var portn = Number(Number(8080)+Number(indexI))
 
     options.apiReverseProxyUrl = isNotEmptyString(process.env.API_REVERSE_PROXY)
-      ? process.env.API_REVERSE_PROXY
+      ? process.env.API_REVERSE_PROXY+portn+"/conversation"
       : 'https://bypass.churchless.tech/api/conversation'
 
     setupProxy(options)
@@ -136,10 +138,11 @@ const tokens = ["eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVF
 
 
 const apiArr: (ChatGPTAPI | ChatGPTUnofficialProxyAPI)[] = []
-for (let i = 0; i < 60; i++) {
+for (let i = 0; i < 4; i++) {
 
   //const api = createApi(tokens[i])
-  const api = createApi(process.env[`OPENAI_ACCESS_TOKEN${i}`])
+  const api = createApi(process.env[`OPENAI_ACCESS_TOKEN${i}`],i)
+  //const api = createApi(process.env[`OPENAI_API_KEY${i}`])
   //const api = createApi("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")
   apiArr.push(api)
   apiMap.set(api, false)
@@ -224,6 +227,9 @@ async function chatReplyProcess(options: RequestOptions) {
     console.log(new Date()+'begin api')
     api = findUseApi()
     iNew = false
+  }
+  if(apiMap.get(api)){
+    return sendResponse({ type: 'Fail', message: '限流，请3秒后再试或左上角新建会话开启新进程' })
   }
 
   // const flag = apiMap.get(api)
