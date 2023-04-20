@@ -138,7 +138,7 @@ const tokens = ["eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVF
 
 
 const apiArr: (ChatGPTAPI | ChatGPTUnofficialProxyAPI)[] = []
-for (let i = 0; i < 4; i++) {
+for (let i = 0; i < 1; i++) {
 
   //const api = createApi(tokens[i])
   const api = createApi(process.env[`OPENAI_ACCESS_TOKEN${i}`],i)
@@ -229,7 +229,7 @@ async function chatReplyProcess(options: RequestOptions) {
     iNew = false
   }
   if(apiMap.get(api)){
-    return sendResponse({ type: 'Fail', message: '限流，请3秒后再试或左上角新建会话开启新进程' })
+    //return sendResponse({ type: 'Fail', message: '限流，请3秒后再试或左上角新建会话开启新进程' })
   }
 
   // const flag = apiMap.get(api)
