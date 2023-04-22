@@ -192,7 +192,7 @@ async function chatReplyProcess(options: RequestOptions) {
     iNew = false
   }
   if(apiMap.get(api)){
-    return sendResponse({ type: 'Fail', message: '限流，请3秒后再试或左上角新建会话开启新进程' })
+   // return sendResponse({ type: 'Fail', message: '限流，请3秒后再试或左上角新建会话开启新进程' })
   }
 
   // const flag = apiMap.get(api)
