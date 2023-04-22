@@ -4,11 +4,17 @@ import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/store'
 const authStore = useAuthStore()
 const { agree } = storeToRefs(authStore)
+
+const joinChat = () =>{
+  const wechatUrl = 'https://ghc-buc-1-1302315235.cos.ap-beijing.myqcloud.com/WechatIMG359.jpeg' + `?${Date.now()}`
+  window.location.href = wechatUrl
+}
+
 </script>
 
 <template>
   <ElDialog
-    :model-value="!agree" title="免责声明（不定时更新系统）" width="80%" center
+    :model-value="!agree" title="免责声明" width="80%" center
     :show-close="false"
     :close-on-click-modal="false"
     :close-on-press-escape="false"
@@ -36,6 +42,9 @@ const { agree } = storeToRefs(authStore)
       <span class="dialog-footer">
         <ElButton type="success" size="large" @click="authStore.setAgree(true)">
           我知道了
+        </ElButton>
+        <ElButton type="success" size="large" @click="joinChat">
+          进入社区
         </ElButton>
       </span>
     </template>
