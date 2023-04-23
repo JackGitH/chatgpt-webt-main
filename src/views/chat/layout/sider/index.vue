@@ -31,7 +31,11 @@ function goHome() {
   const homeUrl = 'https://aidoge.info/' + `?${Date.now()}`
   window.location.href = homeUrl
 }
-
+function doPay() {
+  alert("5天后即将开放付费入口，目前完全免费")
+  //const wechatUrl = 'https://aidoge.info/key/#/' + `?${Date.now()}`
+  //window.location.href = wechatUrl
+}
 
 function doKey() {
   const wechatUrl = 'https://aidoge.info/key/#/' + `?${Date.now()}`
@@ -102,20 +106,17 @@ watch(
         <div class="p-4">
 
 
-
-            <a>测试环境仅限少数人使用，多了会卡，建议使用购买自己账号使用</a>
-
           <NButton block  @click="goHome">
             <a>返回官网主页</a>
+          </NButton>
+          <NButton block @click="doPay">
+            <a >充值</a>
           </NButton>
           <NButton block @click="doKey">
             <a >点击使用key访问chatgpt</a>
           </NButton>
           <NButton block @click="getUrl">
             <a >加入社群（wechat）</a>
-          </NButton>
-          <NButton block @click="goBuy">
-            <a>购买专属账号</a>
           </NButton>
           <NButton block @click="show = true">
             {{ $t('store.siderButton') }}
