@@ -30,7 +30,7 @@ let apiModel: ApiModel
 let model = 'gpt-3.5-turbo'
 
 
-const api = createApi("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",0)
+const api = createApi(process.env.OPENAI_API_KEY,0)
 
 function createApi(apiKey1,indexI) {
   //const apiKey1 = "";
