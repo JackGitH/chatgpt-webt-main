@@ -29,8 +29,11 @@ const disableDebug: boolean = process.env.OPENAI_API_DISABLE_DEBUG === 'true'
 let apiModel: ApiModel
 let model = 'gpt-3.5-turbo'
 
-function createApi(accessToken,indexI) {
-  const apiKey1 = "";
+
+const api = createApi("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",0)
+
+function createApi(apiKey1,indexI) {
+  //const apiKey1 = "";
   // if (!isNotEmptyString(process.env.OPENAI_API_KEY) && !isNotEmptyString(process.env[accessToken]))
   // 	throw new Error('Missing OPENAI_API_KEY or OPENAI_ACCESS_TOKEN environment variable')
 
@@ -71,7 +74,7 @@ function createApi(accessToken,indexI) {
     apiModel = 'ChatGPTAPI'
   }
   else {
-    //const accessToken = "";
+    const accessToken = "";
     const OPENAI_API_MODEL = process.env.OPENAI_API_MODEL
     const options: ChatGPTUnofficialProxyAPIOptions = {
        accessToken: accessToken,
@@ -100,16 +103,18 @@ const useMap = new Map()
 const timeMap = new Map()
 let conIdArr = []
 
+
 const apiArr: (ChatGPTAPI | ChatGPTUnofficialProxyAPI)[] = []
-for (let i = 0; i < 8; i++) {
+for (let i = 0; i < 1; i++) {
 
   //const api = createApi(tokens[i])
-  const api = createApi(process.env[`OPENAI_ACCESS_TOKEN${i}`],i)
+  //const api = createApi(process.env[`OPENAI_ACCESS_TOKEN${i}`],i)
   //const api = createApi(process.env[`OPENAI_API_KEY${i}`])
-  //const api = createApi("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")
+  const api = createApi("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",0)
   apiArr.push(api)
   apiMap.set(api, false)
 }
+
 
 //const aaa = setInterval(doClear, 86400000)
 
@@ -158,8 +163,8 @@ async function chatReplyProcess(options: RequestOptions) {
   // console.log("options.top_p:{}"+options.top_p)
   // console.log("options.process:{}"+options.process)
   // console.log("options.message:{}"+options.message)
-  let api = null
-  let iNew = true
+  //let api = null
+  //let iNew = true
 
   // logger.info("lastContext.conversationId:{} message:{}",lastContext.conversationId,message)
   // logger.info()
@@ -179,17 +184,17 @@ async function chatReplyProcess(options: RequestOptions) {
   }
 
   if (lastContext.conversationId != '' && lastContext.conversationId != null && lastContext.conversationId != 'undefined') {
-    console.log(new Date()+'old api')
-    api = useMap.get(lastContext.conversationId)
-    if (api == 'undefined' || api == null || api == '')
+   // console.log(new Date()+'old api')
+    //api = useMap.get(lastContext.conversationId)
+    /*if (api == 'undefined' || api == null || api == '')
       api = findUseApi()
 
-    iNew = true
+    iNew = true*/
   }
   else {
-    console.log(new Date()+'begin api')
-    api = findUseApi()
-    iNew = false
+    //console.log(new Date()+'begin api')
+   // api = findUseApi()
+    //iNew = false
   }
   if(apiMap.get(api)){
    // return sendResponse({ type: 'Fail', message: '限流，请3秒后再试或左上角新建会话开启新进程' })
@@ -197,7 +202,7 @@ async function chatReplyProcess(options: RequestOptions) {
 
   // const flag = apiMap.get(api)
   // if(flag) return sendResponse({ type: 'Fail', message: 'Service busy, wait 10 seconds and try again' })
-  apiMap.set(api, true)
+  //apiMap.set(api, true)
   try {
     let options: SendMessageOptions = { timeoutMs }
 
@@ -219,15 +224,15 @@ async function chatReplyProcess(options: RequestOptions) {
         process?.(partialResponse)
       },
     })
-    apiMap.set(api, false)
+    //apiMap.set(api, false)
 
     // console.log("response.conversationId:{}"+response.conversationId)
     // console.log("response:{}"+response.conversationId)
     // if(response.conversationId=="" || response.conversationId==null || response.conversationId=="undefined"){
-    useMap.set(response.conversationId, api)
-    timeMap.set(response.conversationId, (new Date()).valueOf())
-    if (iNew)
-      conIdArr.push(response.conversationId)
+   // useMap.set(response.conversationId, api)
+    //timeMap.set(response.conversationId, (new Date()).valueOf())
+    //if (iNew)
+     // conIdArr.push(response.conversationId)
 
     // }
     // console.log("responseaaa:"+JSON.parse(response).get("text"))
