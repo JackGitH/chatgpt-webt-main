@@ -22,11 +22,11 @@ function handleAdd() {
     appStore.setSiderCollapsed(true)
 }
 
-function goBuy() {
-  alert("快来了，稍等")
+//function goBuy() {
+  //alert("快来了，稍等")
   //const buyUrl = 'https://aidoge.info/static/a.html' + `?${Date.now()}`
   //window.location.href = buyUrl
-}
+//}
 function goHome() {
   const homeUrl = 'https://aidoge.info/' + `?${Date.now()}`
   window.location.href = homeUrl
@@ -37,6 +37,9 @@ function doPay() {
   //window.location.href = wechatUrl
 }
 
+function doNull() {
+
+}
 function doKey() {
   const wechatUrl = 'https://aidoge.info/key/#/' + `?${Date.now()}`
   window.location.href = wechatUrl
@@ -114,6 +117,9 @@ watch(
           </NButton>
           <NButton block @click="doKey">
             <a >点击使用key访问chatgpt</a>
+          </NButton>
+          <NButton block @click="doNull">
+            <a >付费部署wechat机器人加入社群</a>
           </NButton>
           <NButton block @click="getUrl">
             <a >加入社群（wechat）</a>
