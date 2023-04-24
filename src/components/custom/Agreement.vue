@@ -1,9 +1,9 @@
 <script setup lang='ts'>
 import { ElButton, ElDialog } from 'element-plus'
-//import { storeToRefs } from 'pinia'
+import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/store'
 const authStore = useAuthStore()
-//const { agree } = storeToRefs(authStore)
+const { agree } = storeToRefs(authStore)
 
 const joinChat = () =>{
   const wechatUrl = 'https://ghc-buc-1-1302315235.cos.ap-beijing.myqcloud.com/WechatIMG359.jpeg' + `?${Date.now()}`
@@ -14,7 +14,7 @@ const joinChat = () =>{
 
 <template>
   <ElDialog
-    :model-value="false" title="免责声明" width="80%" center
+    :model-value="!agree" title="免责声明" width="80%" center
     :show-close="false"
     :close-on-click-modal="false"
     :close-on-press-escape="false"

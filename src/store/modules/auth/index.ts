@@ -18,7 +18,8 @@ export const useAuthStore = defineStore('auth-store', {
   state: (): AuthState => ({
     token: getToken(),
     session: null,
-    agree: false,
+    //agree: false,
+    agree: true,
   }),
 
   getters: {
